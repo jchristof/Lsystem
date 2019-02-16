@@ -2,8 +2,8 @@ bl_info = {
 	"name": "New Lsystem Object",
 	"author": "Michel Anders (varkenvarken)",
 	"version": (1, 0),
-	"blender": (2, 5, 5),
-	"location": "View3D > Add > Mesh > New Lsystem",
+	"blender": (2, 80, 0),
+	"location": "View3D > Add > Object > New Lsystem",
 	"description": "Adds a new Lsystem Object",
 	"warning": "",
 	"wiki_url": "",
@@ -159,7 +159,7 @@ class OBJECT_OT_add_lsystem(Operator):
 		for ob in context.scene.objects:
 			ob.select_set(state=False)
 		#base.select = True
-		bpy.context.active_object = obj
+		context.view_layer.objects.active = obj
 		for q in quads:
 			q.parent=obj
 		return base
