@@ -10,6 +10,8 @@ bl_info = {
 	"tracker_url": "",
 	"category": "Add Mesh"}
 
+from . import auto_load
+
 from math 		import	radians
 from random 	import	random, seed
 
@@ -99,7 +101,7 @@ class OBJECT_OT_add_lsystem(Operator):
 	def add_obj(obdata, context):
 		scene = context.scene
 		obj_new = bpy.data.objects.new(obdata.name, obdata)
-		base = scene.objects.link(obj_new)
+		base = bpy.context.collection.objects.link(obj_new)
 		return obj_new,base
 		
 	def interpret(self, s, context):
@@ -155,9 +157,9 @@ class OBJECT_OT_add_lsystem(Operator):
 		mesh.update()
 		obj,base = self.add_obj(mesh, context)
 		for ob in context.scene.objects:
-			ob.select = False
-		base.select = True
-		context.scene.objects.active = obj
+			ob.select_set(state=False)
+		#base.select = True
+		bpy.context.active_object = obj
 		for q in quads:
 			q.parent=obj
 		return base
@@ -218,11 +220,11 @@ def add_object_button(self, context):
 
 def register():
 	bpy.utils.register_class(OBJECT_OT_add_lsystem)
-	bpy.types.INFO_MT_mesh_add.append(add_object_button)
+	bpy.types.VIEW3D_MT_object.append(add_object_button)
 
 def unregister():
 	bpy.utils.unregister_class(OBJECT_OT_add_lsystem)
-	bpy.types.INFO_MT_mesh_add.remove(add_object_button)
+	bpy.types.VIEW3D_MT_object.remove(add_object_button)
 
 if __name__ == "__main__":
 	register()
