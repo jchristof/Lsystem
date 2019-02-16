@@ -4,4 +4,4 @@ https://michelanders.blogspot.com/p/creating-blender-26-python-add-on.html
 
 Generate an L-system visualization using the Blender add on.
 
-![](Lsystem add on.png)
+![](Lsystem.png)
